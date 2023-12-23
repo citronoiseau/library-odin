@@ -1,3 +1,153 @@
-.bookdisplay {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+header,
+main,
+footer {
+  padding: 30px;
+}
+header,
+footer {
+  background-color: #373028;
+  color: #fbfefe;
+}
+header {
+  box-shadow: 0px 2px 8px 0px rgba(99, 99, 99, 0.2);
+  z-index: 1;
+}
+main {
+  background-color: #f0f4e8;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+}
+.header-element {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  padding: 10px min(2vw, 40px);
+}
+.logo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.citation {
+  font-size: 0.8rem;
+}
+main > button {
+  color: #fbfefe;
+  font-size: 0.9rem;
+  align-self: center;
+  padding: 20px 38px 20px 55px;
+  font-weight: 500;
+  border-radius: 100px;
+  position: relative;
+  background-color: #d29263;
+  border: none;
+  box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+}
+main > button::before {
+  content: url("./images/icon.svg");
+  position: absolute;
+  left: 20px;
+  top: 16px;
+}
+main > button:hover {
+  box-shadow: 4px 3px 8px 2px rgba(0, 0, 0, 0.15);
+  background-color: #df925a;
+}
+main > button:active {
+  background-color: #f5b485;
+}
+.bookDisplay {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 10px min(2vw, 40px);
+}
+.bookDisplay > div {
+  color: #fbfefe;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid #cac4d0;
+  background-color: #88a589;
+  position: relative;
+}
+
+.removeIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  background-color: #25442f;
+  border-radius: 0 12px 0 12px;
+  transition: all 0.3s ease;
+}
+.removeIcon img {
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+.removeIcon:hover img {
+  transform: rotate(65deg);
+}
+.removeIcon:active {
+  background-color: #3730289f;
+}
+.removeIcon:hover {
+  background-color: #373028;
+}
+.bookDisplay > div > div:first-child {
+  display: flex;
+  justify-content: center;
+  border-radius: 12px 12px 0 0;
+  background-color: #3f654b;
+  padding: 10px;
+}
+.bookDisplay > div > div:first-child > img {
+  height: 40px;
+}
+
+.bookDisplay > div > div:nth-child(2) {
+  padding: 15px;
+  font-size: 1.1rem;
+}
+.bookDisplay > div > div:nth-child(2) > div:first-child {
+  font-weight: 800;
+  padding-bottom: 5px;
+}
+footer {
+  text-align: center;
+}
+footer a {
+  color: #f5b485;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
+footer a:hover {
+  color: #ff9142;
+}
+
+@media (max-width: 767px) {
+  .citation {
+    display: none;
+  }
+  .header-element {
+    justify-content: center;
+  }
 }
