@@ -28,6 +28,58 @@
       </div>
     </header>
     <main>
+      <dialog id="addBookDialog">
+        <form method="dialog">
+          <h2>Let's add a book!</h2>
+          <div class="form-element">
+            <label for="title">Title</label>
+            <input
+              class="input"
+              id="title"
+              type="text"
+              placeholder="Jack London"
+              maxlength="20"
+              required
+            />
+          </div>
+          <div class="form-element">
+            <label for="author">Author</label>
+            <input
+              class="input"
+              id="author"
+              type="text"
+              placeholder="Martin Eden"
+              maxlength="20"
+              required
+            />
+          </div>
+          <div class="form-element">
+            <label for="pages">Number of pages</label>
+            <input
+              class="input"
+              id="pages"
+              type="number"
+              placeholder="250"
+              required
+            />
+          </div>
+          <div class="form-element isReadForm">
+            <label for="isReadCheck"> Is it finished?</label>
+            <input
+              type="checkbox"
+              id="isReadCheck"
+              name="isRead"
+              value="true"
+            />
+          </div>
+          <div class="submit-form">
+            <input type="submit" id="confirmBtn" value="Confirm" />
+            <button id="cancelBtn" value="cancel" formmethod="cancel">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </dialog>
       <button class="addBook">Add New Book</button>
       <div class="bookDisplay"></div>
     </main>

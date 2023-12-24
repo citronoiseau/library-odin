@@ -1,6 +1,14 @@
 const bookDisplay = document.querySelector(".bookDisplay");
-const addBookBtn = document.querySelector(".addBook");
 let isRead;
+
+const addBookBtn = document.querySelector(".addBook");
+const addBookDialog = document.querySelector("#addBookDialog");
+const confirmBtn = addBookDialog.querySelector("#confirmBtn");
+const cancelBtn = addBookDialog.querySelector("#cancelBtn");
+const titleForm = addBookDialog.querySelector("#title");
+const authorForm = addBookDialog.querySelector("#author");
+const numberForm = addBookDialog.querySelector("#pages");
+const isReadCheckbox = addBookDialog.querySelector("#isReadCheck");
 
 const bookIcons = [
   "./bookIcons/explore.svg",
@@ -15,9 +23,16 @@ const bookIcons = [
   "./bookIcons/travel.svg",
 ];
 const myLibrary = [];
+const preMadeBook = new Book(
+  "The Hitchhiker's Guide to the Galaxy",
+  "Douglas Adams",
+  224,
+  true
+);
+myLibrary.push(preMadeBook);
 
-function Book(name, author, pages, isRead) {
-  this.name = name;
+function Book(title, author, pages, isRead) {
+  this.title = title;
   this.author = author;
   this.pages = pages;
   this.isRead = isRead;
@@ -36,6 +51,7 @@ Book.prototype.setActiveButton = function (trueBtn, falseBtn) {
 };
 
 function displayBooks(library) {
+  resetDisplay();
   for (const book of library) {
     const bookCard = document.createElement("div");
     bookDisplay.appendChild(bookCard);
@@ -51,9 +67,9 @@ function displayBooks(library) {
     let bookCardElements = document.createElement("div");
     bookCard.appendChild(bookCardElements);
 
-    let bookName = document.createElement("div");
-    bookName.textContent = "Name: " + book.name;
-    bookCardElements.appendChild(bookName);
+    let bookTitle = document.createElement("div");
+    bookTitle.textContent = "Title: " + book.title;
+    bookCardElements.appendChild(bookTitle);
 
     let bookAuthor = document.createElement("div");
     bookAuthor.textContent = "Author: " + book.author;
@@ -83,8 +99,9 @@ function displayBooks(library) {
     readButtonContainer.appendChild(readTrueBtn);
     readButtonContainer.appendChild(readFalseBtn);
 
+    book.setActiveButton(readTrueBtn, readFalseBtn);
     function handleButtonClick() {
-      book.toggleReadStatus();
+      book.toggleReadStatus(readTrueBtn, readFalseBtn);
       book.setActiveButton(readTrueBtn, readFalseBtn);
     }
 
@@ -93,10 +110,12 @@ function displayBooks(library) {
   }
 }
 
-function addBookToLibrary() {
-  let newBook = new Book("Tolkin", "Eee", "223", true);
+function addBookToLibrary(title, author, pages, isReadChecked) {
+  let newBook = new Book(title, author, pages, isReadChecked);
   myLibrary.push(newBook);
+  displayBooks(myLibrary);
 }
+displayBooks(myLibrary);
 
 function removeBook(book, bookCard) {
   const confirmed = window.confirm(
@@ -108,7 +127,19 @@ function removeBook(book, bookCard) {
     bookCard.remove();
   }
 }
-
-addBookToLibrary();
-addBookToLibrary();
-displayBooks(myLibrary);
+function resetDisplay() {
+  bookDisplay.innerHTML = "";
+}
+addBookBtn.addEventListener("click", () => {
+  addBookDialog.showModal();
+});
+confirmBtn.addEventListener("click", () => {
+  const title = titleForm.value;
+  const author = authorForm.value;
+  const pages = numberForm.value;
+  const isReadChecked = isReadCheckbox.checked;
+  addBookToLibrary(title, author, pages, isReadChecked);
+});
+cancelBtn.addEventListener("click", () => {
+  addBookDialog.close();
+});
