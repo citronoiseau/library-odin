@@ -88,6 +88,7 @@ main > button:active {
   border: 1px solid #cac4d0;
   background-color: #88a589;
   position: relative;
+  padding-bottom: 30px;
 }
 
 .removeIcon {
@@ -95,7 +96,7 @@ main > button:active {
   top: 0;
   right: 0;
   padding: 5px;
-  background-color: #25442f;
+  background-color: #213e2b;
   border-radius: 0 12px 0 12px;
   transition: all 0.3s ease;
 }
@@ -107,10 +108,10 @@ main > button:active {
   transform: rotate(65deg);
 }
 .removeIcon:active {
-  background-color: #3730289f;
+  background-color: #66ac80;
 }
 .removeIcon:hover {
-  background-color: #373028;
+  background-color: #518b66;
 }
 .bookDisplay > div > div:first-child {
   display: flex;
@@ -130,6 +131,46 @@ main > button:active {
 .bookDisplay > div > div:nth-child(2) > div:first-child {
   font-weight: 800;
   padding-bottom: 5px;
+}
+.isReadBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.isReadBtn button {
+  padding: 10px 15px;
+  color: #fbfefe;
+  font-size: 0.67rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  transition: all 0.3s ease;
+  border: none;
+}
+.isReadBtn button:first-child,
+.isReadBtn button:nth-child(2) {
+  background-color: #3f654b;
+}
+.isReadBtn button:first-child {
+  border-radius: 12px 0 0 0;
+}
+.isReadBtn button:nth-child(2) {
+  border-radius: 0 0 12px 0;
+}
+.isReadBtn button:hover {
+  background-color: #518b66;
+}
+.isReadBtn button:active {
+  background-color: #66ac80;
+}
+.isReadBtn button.active {
+  background-color: #d29263;
+}
+.isReadBtn button.active:hover {
+  background-color: #df925a;
+}
+.isReadBtn button.active:active {
+  background-color: #f5b485;
 }
 footer {
   text-align: center;

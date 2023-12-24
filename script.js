@@ -1,5 +1,6 @@
 const bookDisplay = document.querySelector(".bookDisplay");
 const addBookBtn = document.querySelector(".addBook");
+let isRead;
 
 const bookIcons = [
   "./bookIcons/explore.svg",
@@ -15,9 +16,28 @@ const bookIcons = [
 ];
 const myLibrary = [];
 
+function Book(name, author, pages, isRead) {
+  this.name = name;
+  this.author = author;
+  this.pages = pages;
+  this.isRead = isRead;
+}
+Book.prototype.toggleReadStatus = function () {
+  this.isRead = !this.isRead;
+};
+Book.prototype.setActiveButton = function (trueBtn, falseBtn) {
+  if (this.isRead) {
+    trueBtn.classList.add("active");
+    falseBtn.classList.remove("active");
+  } else {
+    falseBtn.classList.add("active");
+    trueBtn.classList.remove("active");
+  }
+};
+
 function displayBooks(library) {
-  for (book of library) {
-    let bookCard = document.createElement("div");
+  for (const book of library) {
+    const bookCard = document.createElement("div");
     bookDisplay.appendChild(bookCard);
 
     let bookImageContainer = document.createElement("div");
@@ -43,10 +63,6 @@ function displayBooks(library) {
     bookPages.textContent = "Pages: " + book.pages;
     bookCardElements.appendChild(bookPages);
 
-    let bookRead = document.createElement("div");
-    bookRead.textContent = "Read: " + book.isRead;
-    bookCardElements.appendChild(bookRead);
-
     let removeIconContainer = document.createElement("div");
     let removeIcon = document.createElement("img");
     removeIconContainer.classList.add("removeIcon");
@@ -56,20 +72,32 @@ function displayBooks(library) {
     removeIcon.addEventListener("click", function () {
       removeBook(book, bookCard);
     });
-  }
-}
 
-function Book(name, author, pages, isRead) {
-  this.name = name;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
+    let readButtonContainer = document.createElement("div");
+    readButtonContainer.classList.add("isReadBtn");
+    bookCard.appendChild(readButtonContainer);
+    let readTrueBtn = document.createElement("button");
+    readTrueBtn.textContent = "Finished";
+    let readFalseBtn = document.createElement("button");
+    readFalseBtn.textContent = "In progress";
+    readButtonContainer.appendChild(readTrueBtn);
+    readButtonContainer.appendChild(readFalseBtn);
+
+    function handleButtonClick() {
+      book.toggleReadStatus();
+      book.setActiveButton(readTrueBtn, readFalseBtn);
+    }
+
+    readTrueBtn.addEventListener("click", handleButtonClick);
+    readFalseBtn.addEventListener("click", handleButtonClick);
+  }
 }
 
 function addBookToLibrary() {
   let newBook = new Book("Tolkin", "Eee", "223", true);
   myLibrary.push(newBook);
 }
+
 function removeBook(book, bookCard) {
   const confirmed = window.confirm(
     "Are you sure you want to remove this book?"
