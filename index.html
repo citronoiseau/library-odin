@@ -29,12 +29,13 @@
     </header>
     <main>
       <dialog id="addBookDialog">
-        <form method="dialog">
+        <form>
           <h2>Let's add a book!</h2>
           <div class="form-element">
             <label for="title">Title</label>
             <input
               class="input"
+              name="title"
               id="title"
               type="text"
               placeholder="Jack London"
@@ -46,6 +47,7 @@
             <label for="author">Author</label>
             <input
               class="input"
+              name="author"
               id="author"
               type="text"
               placeholder="Martin Eden"
@@ -57,13 +59,14 @@
             <label for="pages">Number of pages</label>
             <input
               class="input"
+              name="pages"
               id="pages"
               type="number"
               placeholder="250"
               required
             />
           </div>
-          <div class="form-element isReadForm">
+          <div class="isReadForm">
             <label for="isReadCheck"> Is it finished?</label>
             <input
               type="checkbox"

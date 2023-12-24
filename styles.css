@@ -69,9 +69,15 @@ main > button::before {
 }
 main > button:hover {
   box-shadow: 4px 3px 8px 2px rgba(0, 0, 0, 0.15);
-  background-color: #df925a;
 }
-main > button:active {
+main > button:hover,
+#cancelBtn:hover,
+#confirmBtn:hover {
+  background-color: #e9965b;
+}
+main > button:active,
+#cancelBtn:active,
+#confirmBtn:active {
   background-color: #f5b485;
 }
 .bookDisplay {
@@ -137,7 +143,9 @@ main > button:active {
   bottom: 0;
   right: 0;
 }
-.isReadBtn button {
+.isReadBtn button,
+#confirmBtn,
+#cancelBtn {
   padding: 10px 15px;
   color: #fbfefe;
   font-size: 0.67rem;
@@ -172,7 +180,97 @@ main > button:active {
 .isReadBtn button.active:active {
   background-color: #f5b485;
 }
+#addBookDialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  border: none;
+  border-radius: 12px;
+  width: clamp(300px, 20vw, 30vw);
+  background-color: #88a589;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+form {
+  padding: 20px;
+  color: #fbfefe;
+  position: relative;
+}
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+form label {
+  font-size: 1rem;
+  padding-bottom: 5px;
+}
+form .form-element input {
+  height: 2.2rem;
+  padding: 10px;
+  border: none;
+  border-radius: 12px;
+  background-color: #3f654b;
+  outline: none;
+  caret-color: #fbfefe;
+  color: #fbfefe;
+  transition: all 0.2s ease;
+}
+form .form-element input:focus {
+  background-color: #365640;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+form .form-element input:hover {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+form input::placeholder {
+  color: #fbfefec2;
+}
 
+.form-element {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5px;
+}
+.isReadForm {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 10px 0 25px 0;
+}
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+input[type="checkbox"]:checked {
+  accent-color: #fbfefe;
+}
+#confirmBtn,
+#cancelBtn {
+  position: absolute;
+  bottom: 0;
+  background-color: #d29263;
+}
+#confirmBtn {
+  border-radius: 0 12px 0 12px;
+}
+#cancelBtn {
+  border-radius: 12px 0 12px 0;
+}
+#confirmBtn {
+  left: 0;
+}
+#cancelBtn {
+  right: 0;
+}
+#addBookDialog.active {
+  opacity: 1;
+}
 footer {
   text-align: center;
 }
