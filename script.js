@@ -134,11 +134,13 @@ addBookBtn.addEventListener("click", () => {
   addBookDialog.showModal();
 });
 confirmBtn.addEventListener("click", () => {
-  const title = titleForm.value;
-  const author = authorForm.value;
-  const pages = numberForm.value;
-  const isReadChecked = isReadCheckbox.checked;
-  addBookToLibrary(title, author, pages, isReadChecked);
+  if (bookForm.checkValidity()) {
+    const title = titleForm.value;
+    const author = authorForm.value;
+    const pages = numberForm.value;
+    const isReadChecked = isReadCheckbox.checked;
+    addBookToLibrary(title, author, pages, isReadChecked);
+  }
 });
 cancelBtn.addEventListener("click", () => {
   addBookDialog.close();
