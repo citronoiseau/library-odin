@@ -133,17 +133,28 @@ function resetDisplay() {
 }
 addBookBtn.addEventListener("click", () => {
   addBookDialog.showModal();
+  document.getElementById("addBookDialog").classList.add("active");
 });
-confirmBtn.addEventListener("click", () => {
+confirmBtn.addEventListener("click", (event) => {
   if (bookForm.checkValidity()) {
     const title = titleForm.value;
     const author = authorForm.value;
     const pages = numberForm.value;
     const isReadChecked = isReadCheckbox.checked;
     addBookToLibrary(title, author, pages, isReadChecked);
-    form.reset();
+    event.preventDefault();
+    bookForm.reset();
+    addBookDialog.close();
   }
 });
-cancelBtn.addEventListener("click", () => {
+cancelBtn.addEventListener("click", (event) => {
+  event.preventDefault();
   addBookDialog.close();
+  document.getElementById("addBookDialog").classList.remove("active");
+});
+document.addEventListener("click", (event) => {
+  if (event.target === addBookDialog) {
+    addBookDialog.close();
+    document.getElementById("addBookDialog").classList.remove("active");
+  }
 });
