@@ -3,6 +3,7 @@ let isRead;
 
 const addBookBtn = document.querySelector(".addBook");
 const addBookDialog = document.querySelector("#addBookDialog");
+const bookForm = addBookDialog.querySelector("form");
 const confirmBtn = addBookDialog.querySelector("#confirmBtn");
 const cancelBtn = addBookDialog.querySelector("#cancelBtn");
 const titleForm = addBookDialog.querySelector("#title");
@@ -140,6 +141,7 @@ confirmBtn.addEventListener("click", () => {
     const pages = numberForm.value;
     const isReadChecked = isReadCheckbox.checked;
     addBookToLibrary(title, author, pages, isReadChecked);
+    form.reset();
   }
 });
 cancelBtn.addEventListener("click", () => {

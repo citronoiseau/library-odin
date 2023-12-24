@@ -88,7 +88,7 @@ main > button:active {
   border: 1px solid #cac4d0;
   background-color: #88a589;
   position: relative;
-  padding-bottom: 30px;
+  padding-bottom: 40px;
 }
 
 .removeIcon {
@@ -172,6 +172,7 @@ main > button:active {
 .isReadBtn button.active:active {
   background-color: #f5b485;
 }
+
 footer {
   text-align: center;
 }
