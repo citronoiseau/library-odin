@@ -44,8 +44,8 @@ Book.prototype.setActiveButton = function (trueBtn, falseBtn) {
 };
 
 Book.prototype.handleButtonClick = function (readTrueBtn, readFalseBtn) {
-  newBook.toggleReadStatus(readTrueBtn, readFalseBtn);
-  newBook.setActiveButton(readTrueBtn, readFalseBtn);
+  this.toggleReadStatus(readTrueBtn, readFalseBtn);
+  this.setActiveButton(readTrueBtn, readFalseBtn);
 };
 
 function displayBook(newBook) {
