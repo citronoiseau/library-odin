@@ -1,5 +1,4 @@
 const bookDisplay = document.querySelector(".bookDisplay");
-let isRead;
 
 const addBookBtn = document.querySelector(".addBook");
 const addBookDialog = document.querySelector("#addBookDialog");
@@ -24,13 +23,6 @@ const bookIcons = [
   "./bookIcons/travel.svg",
 ];
 const myLibrary = [];
-const preMadeBook = new Book(
-  "The Hitchhiker's Guide to the Galaxy",
-  "Douglas Adams",
-  224,
-  true
-);
-myLibrary.push(preMadeBook);
 
 function Book(title, author, pages, isRead) {
   this.title = title;
@@ -51,72 +43,82 @@ Book.prototype.setActiveButton = function (trueBtn, falseBtn) {
   }
 };
 
-function displayBooks(library) {
-  resetDisplay();
-  for (const book of library) {
-    const bookCard = document.createElement("div");
-    bookDisplay.appendChild(bookCard);
+Book.prototype.handleButtonClick = function (readTrueBtn, readFalseBtn) {
+  newBook.toggleReadStatus(readTrueBtn, readFalseBtn);
+  newBook.setActiveButton(readTrueBtn, readFalseBtn);
+};
 
-    let bookImageContainer = document.createElement("div");
-    bookCard.appendChild(bookImageContainer);
+function displayBook(newBook) {
+  const bookCard = document.createElement("div");
+  bookDisplay.appendChild(bookCard);
 
-    let bookImage = document.createElement("img");
-    let randomImage = Math.floor(Math.random() * bookIcons.length);
-    bookImage.src = bookIcons[randomImage];
-    bookImageContainer.appendChild(bookImage);
+  let bookImageContainer = document.createElement("div");
+  bookCard.appendChild(bookImageContainer);
 
-    let bookCardElements = document.createElement("div");
-    bookCard.appendChild(bookCardElements);
+  let bookImage = document.createElement("img");
+  let randomImage = Math.floor(Math.random() * bookIcons.length);
+  bookImage.src = bookIcons[randomImage];
+  bookImageContainer.appendChild(bookImage);
 
-    let bookTitle = document.createElement("div");
-    bookTitle.textContent = "Title: " + book.title;
-    bookCardElements.appendChild(bookTitle);
+  let bookCardElements = document.createElement("div");
+  bookCard.appendChild(bookCardElements);
 
-    let bookAuthor = document.createElement("div");
-    bookAuthor.textContent = "Author: " + book.author;
-    bookCardElements.appendChild(bookAuthor);
+  let bookTitle = document.createElement("div");
+  bookTitle.textContent = "Title: " + newBook.title;
+  bookCardElements.appendChild(bookTitle);
 
-    let bookPages = document.createElement("div");
-    bookPages.textContent = "Pages: " + book.pages;
-    bookCardElements.appendChild(bookPages);
+  let bookAuthor = document.createElement("div");
+  bookAuthor.textContent = "Author: " + newBook.author;
+  bookCardElements.appendChild(bookAuthor);
 
-    let removeIconContainer = document.createElement("div");
-    let removeIcon = document.createElement("img");
-    removeIconContainer.classList.add("removeIcon");
-    removeIcon.src = "./images/delete.svg";
-    bookCard.appendChild(removeIconContainer);
-    removeIconContainer.appendChild(removeIcon);
-    removeIcon.addEventListener("click", function () {
-      removeBook(book, bookCard);
-    });
+  let bookPages = document.createElement("div");
+  bookPages.textContent = "Pages: " + newBook.pages;
+  bookCardElements.appendChild(bookPages);
 
-    let readButtonContainer = document.createElement("div");
-    readButtonContainer.classList.add("isReadBtn");
-    bookCard.appendChild(readButtonContainer);
-    let readTrueBtn = document.createElement("button");
-    readTrueBtn.textContent = "Finished";
-    let readFalseBtn = document.createElement("button");
-    readFalseBtn.textContent = "In progress";
-    readButtonContainer.appendChild(readTrueBtn);
-    readButtonContainer.appendChild(readFalseBtn);
+  let removeIconContainer = document.createElement("div");
+  let removeIcon = document.createElement("img");
+  removeIconContainer.classList.add("removeIcon");
+  removeIcon.src = "./images/delete.svg";
+  bookCard.appendChild(removeIconContainer);
+  removeIconContainer.appendChild(removeIcon);
+  removeIcon.addEventListener("click", function () {
+    removeBook(newBook, bookCard);
+  });
 
-    book.setActiveButton(readTrueBtn, readFalseBtn);
-    function handleButtonClick() {
-      book.toggleReadStatus(readTrueBtn, readFalseBtn);
-      book.setActiveButton(readTrueBtn, readFalseBtn);
-    }
+  let readButtonContainer = document.createElement("div");
+  readButtonContainer.classList.add("isReadBtn");
+  bookCard.appendChild(readButtonContainer);
+  let readTrueBtn = document.createElement("button");
+  readTrueBtn.textContent = "Finished";
+  let readFalseBtn = document.createElement("button");
+  readFalseBtn.textContent = "In progress";
+  readButtonContainer.appendChild(readTrueBtn);
+  readButtonContainer.appendChild(readFalseBtn);
 
-    readTrueBtn.addEventListener("click", handleButtonClick);
-    readFalseBtn.addEventListener("click", handleButtonClick);
-  }
+  newBook.setActiveButton(readTrueBtn, readFalseBtn);
+
+  readTrueBtn.addEventListener("click", () =>
+    newBook.handleButtonClick(readTrueBtn, readFalseBtn)
+  );
+  readFalseBtn.addEventListener("click", () =>
+    newBook.handleButtonClick(readTrueBtn, readFalseBtn)
+  );
 }
+
+const preMadeBook = new Book(
+  "The Hitchhiker's Guide to the Galaxy",
+  "Douglas Adams",
+  224,
+  true
+);
+myLibrary.push(preMadeBook);
+displayBook(preMadeBook);
 
 function addBookToLibrary(title, author, pages, isReadChecked) {
   let newBook = new Book(title, author, pages, isReadChecked);
   myLibrary.push(newBook);
-  displayBooks(myLibrary);
+  displayBook(newBook);
 }
-displayBooks(myLibrary);
 
 function removeBook(book, bookCard) {
   const confirmed = window.confirm(
