@@ -258,14 +258,10 @@ input[type="checkbox"]:checked {
 }
 #confirmBtn {
   border-radius: 0 12px 0 12px;
-}
-#cancelBtn {
-  border-radius: 12px 0 12px 0;
-}
-#confirmBtn {
   left: 0;
 }
 #cancelBtn {
+  border-radius: 12px 0 12px 0;
   right: 0;
 }
 #addBookDialog.active {
