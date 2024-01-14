@@ -24,29 +24,33 @@ const bookIcons = [
 ];
 const myLibrary = [];
 
-function Book(title, author, pages, isRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-}
-Book.prototype.toggleReadStatus = function () {
-  this.isRead = !this.isRead;
-};
-Book.prototype.setActiveButton = function (trueBtn, falseBtn) {
-  if (this.isRead) {
-    trueBtn.classList.add("active");
-    falseBtn.classList.remove("active");
-  } else {
-    falseBtn.classList.add("active");
-    trueBtn.classList.remove("active");
+class Book {
+  constructor(title, author, pages, isRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
   }
-};
 
-Book.prototype.handleButtonClick = function (readTrueBtn, readFalseBtn) {
-  this.toggleReadStatus(readTrueBtn, readFalseBtn);
-  this.setActiveButton(readTrueBtn, readFalseBtn);
-};
+  toggleReadStatus() {
+    this.isRead = !this.isRead;
+  }
+
+  setActiveButton(trueBtn, falseBtn) {
+    if (this.isRead) {
+      trueBtn.classList.add("active");
+      falseBtn.classList.remove("active");
+    } else {
+      falseBtn.classList.add("active");
+      trueBtn.classList.remove("active");
+    }
+  }
+
+  handleButtonClick(trueBtn, falseBtn) {
+    this.toggleReadStatus(trueBtn, falseBtn);
+    this.setActiveButton(trueBtn, falseBtn);
+  }
+}
 
 function displayBook(newBook) {
   const bookCard = document.createElement("div");
@@ -133,10 +137,12 @@ function removeBook(book, bookCard) {
 function resetDisplay() {
   bookDisplay.innerHTML = "";
 }
+
 addBookBtn.addEventListener("click", () => {
   addBookDialog.showModal();
   document.getElementById("addBookDialog").classList.add("active");
 });
+
 confirmBtn.addEventListener("click", (event) => {
   if (bookForm.checkValidity()) {
     const title = titleForm.value;
@@ -149,11 +155,13 @@ confirmBtn.addEventListener("click", (event) => {
     addBookDialog.close();
   }
 });
+
 cancelBtn.addEventListener("click", (event) => {
   event.preventDefault();
   addBookDialog.close();
   document.getElementById("addBookDialog").classList.remove("active");
 });
+
 document.addEventListener("click", (event) => {
   if (event.target === addBookDialog) {
     addBookDialog.close();
